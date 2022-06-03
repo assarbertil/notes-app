@@ -1,0 +1,30 @@
+{
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "vm1.glesys.joarc.ovh",
+      "port": 3306,
+      "driver": "MariaDB",
+      "name": "joar vps",
+      "database": "icarus",
+      "username": "icarus_service_user",
+      "password": "MrnM5QmLx8K98SWQPmLKzvQBrMTYwtFw"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "mysql",
+      "database": "notes",
+      "username": "root",
+      "password": "root"
+    }
+  ]
+}

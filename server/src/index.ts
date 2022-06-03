@@ -6,6 +6,7 @@ import { indexRouter } from "./routes/index"
 import { notesRouter } from "./routes/notes"
 import { usersRouter } from "./routes/users"
 import { authRouter } from "./routes/auth"
+import * as argon2 from "argon2"
 
 export const app = express()
 const port = process.env.PORT || 3000
