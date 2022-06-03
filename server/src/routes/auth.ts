@@ -15,7 +15,7 @@ passport.use(new LocalStrategy(verifyUser))
 authRouter.post(
   "/login/password",
   passport.authenticate("local", {
-    successRedirect: "/success",
-    failureRedirect: "/login",
+    successRedirect: `${process.env.FRONTEND_URL}/success`,
+    failureRedirect: `${process.env.FRONTEND_URL}/failure`,
   })
 )
