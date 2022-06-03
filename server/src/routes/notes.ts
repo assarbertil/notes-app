@@ -1,9 +1,17 @@
 import { Router } from "express"
-import { getUserNotes } from "../lib/notes"
+import { CustomResponse } from "src/interfaces/CustomResponse"
+import { isAuthed } from "src/lib/jwt"
+import { prisma } from "../utils/initPrisma"
+
 export const notesRouter = Router()
 
-notesRouter.get("/", async (req, res) => {
-  const userNotes = await getUserNotes(1)
-  console.log(userNotes)
-  res.json(userNotes)
+notesRouter.get("/", isAuthed, async (req, res: CustomResponse) => {
+  const { authorId } = req.body
+
+  if (typeof authorId !== "number") {
+    return res.status(400).send("authorId is required")
+  }
+
+  const userNotes = await prisma.note.findMany({ where: { authorId } })
+  return res.json(userNotes)
 })

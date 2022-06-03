@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "../utils/initPrisma"
 import type { Note } from "@prisma/client"
-
-const prisma = new PrismaClient()
 
 // Crud operations for notes
 

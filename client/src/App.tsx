@@ -1,66 +1,89 @@
+import { FormEvent } from "react"
 import { Layout } from "./components/Layout"
 import { globalStyles } from "./globalStyles"
+import { login, register } from "./lib/auth"
+import { Formik, Form, Field, ErrorMessage } from "formik"
 
 export default function App() {
   globalStyles()
 
   return (
     <>
-      <form
-        action={`${process.env.REACT_APP_BACKEND_URL}/auth/login/password`}
-        method="post"
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={(values) => {
+          console.log(values)
+          login(values.email, values.password)
+        }}
       >
-        <section>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            autoComplete="username"
-            required
-            autoFocus
-          />
-        </section>
-        <section>
-          <label htmlFor="current-password">Password</label>
-          <input
-            id="current-password"
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            required
-          />
-        </section>
-        <button type="submit">Sign in</button>
-      </form>
+        {({ isSubmitting }) => (
+          <Form>
+            <section>
+              <label htmlFor="username">Username</label>
+              <Field
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                autoFocus
+              />
+              <ErrorMessage name="email" component="div" />
+            </section>
+            <section>
+              <label htmlFor="current-password">Password</label>
+              <Field
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+              />
+              <ErrorMessage name="email" component="div" />
+            </section>
+            <button type="submit" disabled={isSubmitting}>
+              Sign in
+            </button>
+          </Form>
+        )}
+      </Formik>
 
-      <form
-        action={`${process.env.REACT_APP_BACKEND_URL}/auth/register/password`}
-        method="post"
+      {/* Register */}
+
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={(values) => {
+          console.log(values)
+          register(values.email, values.password)
+        }}
       >
-        <section>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            autoComplete="username"
-            required
-            autoFocus
-          />
-        </section>
-        <section>
-          <label htmlFor="current-password">Password</label>
-          <input
-            id="current-password"
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            required
-          />
-        </section>
-        <button type="submit">Register</button>
-      </form>
+        {({ isSubmitting }) => (
+          <Form>
+            <section>
+              <label htmlFor="username">Username</label>
+              <Field
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                autoFocus
+              />
+              <ErrorMessage name="email" component="div" />
+            </section>
+            <section>
+              <label htmlFor="current-password">Password</label>
+              <Field
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+              />
+              <ErrorMessage name="email" component="div" />
+            </section>
+            <button type="submit" disabled={isSubmitting}>
+              Sign in
+            </button>
+          </Form>
+        )}
+      </Formik>
     </>
   )
 }
