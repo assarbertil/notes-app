@@ -22,7 +22,7 @@ export const isAuthed = (
 
     res.payload = payload as any
   } catch (err) {
-    console.log(err)
+    console.log("isAuthed error: ", err.message)
     return res.status(401).send({ error: "not authenticated" })
   }
 

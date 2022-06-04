@@ -5,8 +5,8 @@ import { prisma } from "../utils/initPrisma"
 
 export const usersRouter = Router()
 
-usersRouter.get("/:id", isAuthed, async (req, res: CustomResponse) => {
-  const { id: userId } = req.params
+usersRouter.get("/me", isAuthed, async (req, res: CustomResponse) => {
+  const { userId } = res.payload
   if (!userId) {
     console.log("User error: Missing id")
     return res.status(400).send({ error: "User id is required" })
@@ -24,11 +24,6 @@ usersRouter.get("/:id", isAuthed, async (req, res: CustomResponse) => {
   if (!user) {
     console.log("User error: User not found")
     return res.status(400).send({ error: "User not found" })
-  }
-
-  if (res.payload.userId !== user.id) {
-    console.log("User error: User id does not match")
-    return res.status(400).send({ error: "Ids do not match" })
   }
 
   console.log("User successfully fetched")
