@@ -1,27 +1,6 @@
-import { Response } from "express"
-import { User } from "@prisma/client"
-import jwt from "jsonwebtoken"
 import { NextFunction, Request } from "express"
 import { CustomResponse } from "../interfaces/CustomResponse"
-
-// Working with JWTs
-
-export const generateAccessToken = (user: User) =>
-  jwt.sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET!, {
-    expiresIn: "15s",
-  })
-
-export const generateRefreshToken = (user: User) =>
-  jwt.sign({ userId: user.id }, process.env.REFRESH_TOKEN_SECRET!, {
-    expiresIn: "7d",
-  })
-
-export const setRefreshTokenCookie = (res: Response, token: string) =>
-  res.cookie("jid", token, {
-    httpOnly: true,
-    // path: "/refresh_token", // This sometimes breaks setting the cookie
-    sameSite: "strict",
-  })
+import jwt from "jsonwebtoken"
 
 // Express middleware to check if user is authenticated
 

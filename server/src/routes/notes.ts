@@ -1,18 +1,19 @@
 import { Router } from "express"
-import { CustomResponse } from "src/interfaces/CustomResponse"
-import { isAuthed } from "../lib/auth"
+import { isAuthed } from "../lib/isAuthed"
 import { prisma } from "../utils/initPrisma"
 
 export const notesRouter = Router()
 
-notesRouter.get("/", isAuthed, async (req, res: CustomResponse) => {
-  const { authorId } = req.body
+notesRouter.get("/", isAuthed, async (req, res) => {
+  const { id: noteId } = req.params
 
-  if (typeof authorId !== "number") {
-    return res.status(400).send("authorId is required")
+  if (!noteId) {
+    console.log("Note error: Missing id")
+    return res.status(400).send({ error: "author id is required" })
   }
 
-  const userNotes = await prisma.note.findMany({ where: { authorId } })
+  const userNotes = await prisma.note.findMany()
 
+  console.log("Notes successfully fetched")
   return res.json(userNotes)
 })

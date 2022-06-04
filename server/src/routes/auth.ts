@@ -4,23 +4,22 @@ import {
   generateAccessToken,
   generateRefreshToken,
   setRefreshTokenCookie,
-} from "../lib/auth"
+} from "../lib/jwt"
 import { prisma } from "../utils/initPrisma"
 const { verify } = jsonwebtoken
 import * as argon2 from "argon2"
+import { v4 as uuidv4 } from "uuid"
 
 export const authRouter = Router()
 
 authRouter.post("/register", async (req, res) => {
   const { email, password } = req.body
 
-  // Check if email and password is not empty
   if (typeof email !== "string" || typeof password !== "string") {
     console.log("Register error: Email and password are required")
-    return res.status(400).send("Email and password are required")
+    return res.status(400).send({ error: "Email and password are required" })
   }
 
-  // Check if user exists
   if (await prisma.user.findUnique({ where: { email } })) {
     console.log("Register error: User already exists")
     return res.status(409).send({ error: "Username taken!" })
@@ -31,6 +30,7 @@ authRouter.post("/register", async (req, res) => {
   try {
     user = await prisma.user.create({
       data: {
+        id: uuidv4(),
         email,
         password: await argon2.hash(password),
       },
@@ -54,7 +54,7 @@ authRouter.post("/login", async (req, res) => {
 
   if (typeof email !== "string" || typeof password !== "string") {
     console.log("Login error: Missing email or password")
-    return res.status(400).send("Email and password are required")
+    return res.status(400).send({ error: "Email and password are required" })
   }
 
   const user = await prisma.user.findUnique({ where: { email } })
