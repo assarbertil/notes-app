@@ -1,24 +1,25 @@
-import axios from "axios"
-import { User } from "../types/User"
+import { useAtom } from "jotai"
+import { userAtom } from "../store"
+import { AuthApiResponse } from "../types/AuthApiResponse"
+import { axios } from "../utils/axiosInstance"
 
 export const register = async (email: string, password: string) => {
   const response = await axios.post(
-    `${process.env.REACT_APP_BACKEND_URL}/auth/signup`,
-    {
-      email,
-      password,
-    }
+    `${process.env.REACT_APP_BACKEND_URL}/auth/register`,
+    { email, password }
   )
-  console.log(response)
+
+  localStorage.setItem("jwt", await response.data.token)
 }
 
 export const login = async (email: string, password: string) => {
-  const response = await axios.post(
-    `${process.env.REACT_APP_BACKEND_URL}/auth/login/password`,
-    {
+  try {
+    const { data } = await axios.post<AuthApiResponse>("/auth/login", {
       email,
       password,
-    }
-  )
-  console.log(response)
+    })
+    return data
+  } catch (err) {
+    console.log("Login error", err)
+  }
 }

@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { CustomResponse } from "src/interfaces/CustomResponse"
-import { isAuthed } from "src/lib/jwt"
+import { isAuthed } from "../lib/auth"
 import { prisma } from "../utils/initPrisma"
 
 export const notesRouter = Router()
@@ -13,5 +13,6 @@ notesRouter.get("/", isAuthed, async (req, res: CustomResponse) => {
   }
 
   const userNotes = await prisma.note.findMany({ where: { authorId } })
+
   return res.json(userNotes)
 })

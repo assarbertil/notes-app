@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "seed": "ts-node prisma/seed.ts --swc",
+    "setup-db": "npx prisma db push && ts-node prisma/seed.ts --swc",
     "start": "ts-node src/index.ts --swc",
-    "startDev": "nodemon --exec ts-node src/index.ts --swc"
+    "dev": "nodemon --exec ts-node src/index.ts --swc"
   },
   "keywords": [],
   "author": "Assar C",
@@ -17,7 +17,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "prisma": "^3.14.0"

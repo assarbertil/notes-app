@@ -1,10 +1,10 @@
 import { Router } from "express"
 import jsonwebtoken from "jsonwebtoken"
 import {
-  createAccessToken,
-  createRefreshToken,
-  sendRefreshToken,
-} from "../lib/jwt"
+  generateAccessToken,
+  generateRefreshToken,
+  setRefreshTokenCookie,
+} from "../lib/auth"
 import { prisma } from "../utils/initPrisma"
 const { verify } = jsonwebtoken
 import * as argon2 from "argon2"
@@ -15,12 +15,14 @@ authRouter.post("/register", async (req, res) => {
   const { email, password } = req.body
 
   // Check if email and password is not empty
-  if (email === undefined || password === undefined) {
+  if (typeof email !== "string" || typeof password !== "string") {
+    console.log("Register error: Email and password are required")
     return res.status(400).send("Email and password are required")
   }
 
   // Check if user exists
   if (await prisma.user.findUnique({ where: { email } })) {
+    console.log("Register error: User already exists")
     return res.status(409).send({ error: "Username taken!" })
   }
 
@@ -34,39 +36,53 @@ authRouter.post("/register", async (req, res) => {
       },
     })
   } catch (err) {
+    console.log("Register error:", err.message)
     return res.status(409).send({ error: err.message })
   }
 
-  sendRefreshToken(res, createRefreshToken(user))
+  setRefreshTokenCookie(res, generateRefreshToken(user))
+
+  console.log("Register success:", user.email)
   return res.send({
     user: { id: user.id, email: user.email },
-    accessToken: createAccessToken(user),
+    accessToken: generateAccessToken(user),
   })
 })
 
 authRouter.post("/login", async (req, res) => {
   const { email, password } = req.body
+
+  if (typeof email !== "string" || typeof password !== "string") {
+    console.log("Login error: Missing email or password")
+    return res.status(400).send("Email and password are required")
+  }
+
   const user = await prisma.user.findUnique({ where: { email } })
   if (!user) {
+    console.log("Login error: Entered email does not exist")
     return res.status(401).send({ error: "No user found" })
   }
 
   const isValid = await argon2.verify(user.password, password)
   if (!isValid) {
+    console.log("Login error: Wrong password")
     return res.status(401).send({ error: "Incorrect password" })
   }
 
-  sendRefreshToken(res, createRefreshToken(user))
+  setRefreshTokenCookie(res, generateRefreshToken(user))
 
+  console.log("Login success:", user.email)
   return res.send({
     user: { id: user.id, email: user.email },
-    accessToken: createAccessToken(user),
+    accessToken: generateAccessToken(user),
   })
 })
 
 authRouter.post("/refresh_token", async (req, res) => {
   const token = req.cookies.jid
+
   if (!token) {
+    console.log("Refresh token error: No token provided in cookies")
     return res.send({ ok: false, accessToken: "" })
   }
 
@@ -74,17 +90,19 @@ authRouter.post("/refresh_token", async (req, res) => {
   try {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET!)
   } catch (err) {
-    console.log(err)
+    console.log("Refresh token error:", err.message)
     return res.send({ ok: false, accessToken: "" })
   }
 
   const user = await prisma.user.findUnique({ where: { id: payload.userId } })
 
   if (!user) {
+    console.log("Refresh token error: No user found with id inside token")
     return res.send({ ok: false, accessToken: "" })
   }
 
-  sendRefreshToken(res, createRefreshToken(user))
+  setRefreshTokenCookie(res, generateRefreshToken(user))
 
-  return res.send({ ok: true, accessToken: createAccessToken(user) })
+  console.log("Refresh token success: Refreshed", user.email)
+  return res.send({ ok: true, accessToken: generateAccessToken(user) })
 })

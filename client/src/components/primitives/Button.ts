@@ -12,17 +12,24 @@ export const Button = styled("button", {
   variants: {
     color: {
       primary: {
-        color: "#fff",
-        bg: "#000",
+        color: "$blue10",
+        background: "$blue5",
+
+        "&:hover": { background: "$blue4" },
+        "&:disabled": { background: "$mauve4", color: "$mauve10" },
       },
-      secondary: {
-        color: "#fff",
-        bg: "#000",
+    },
+    size: {
+      base: {
+        fontSize: "1rem",
+        padding: "0.625rem 1rem",
+        borderRadius: 5,
       },
     },
   },
 
   defaultVariants: {
     color: "primary",
+    size: "base",
   },
 })

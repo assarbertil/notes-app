@@ -26,3 +26,5 @@ main()
   .finally(async () => {
     await prisma.$disconnect()
   })
+
+console.log("Database seeded")

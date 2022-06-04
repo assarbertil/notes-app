@@ -1,5 +1,5 @@
 import { createStitches } from "@stitches/react"
-import { mauve, blue } from "@radix-ui/colors"
+import { mauve, blue, crimson } from "@radix-ui/colors"
 
 export const {
   styled,
@@ -15,6 +15,7 @@ export const {
     colors: {
       ...mauve,
       ...blue,
+      ...crimson,
     },
     fonts: {
       inter: "Inter, -apple-system, system-ui, sans-serif",

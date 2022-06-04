@@ -4,6 +4,7 @@ export const globalStyles = globalCss({
   "*": {
     margin: 0,
     padding: 0,
+    boxSizing: "border-box",
   },
 
   "::selection": {
@@ -12,5 +13,11 @@ export const globalStyles = globalCss({
 
   html: {
     fontFamily: "$inter",
+    color: "$blue12",
+    background: "$blue2",
+  },
+
+  "#root": {
+    display: "flex",
   },
 })
