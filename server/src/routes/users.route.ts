@@ -28,9 +28,7 @@ usersRouter.get("/me", isAuthed, async (req, res: CustomResponse) => {
 
   console.log("User successfully fetched")
   return res.send({
-    user: {
-      id: user.id,
-      email: user.email,
-    },
+    id: user.id,
+    email: user.email,
   })
 })

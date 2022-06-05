@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom"
-import { useAuth } from "../../hooks/useAuth"
+import { useUser } from "../../hooks/useUser"
 
 type AuthFormValues = {
   email: string
@@ -7,7 +7,7 @@ type AuthFormValues = {
 }
 
 export const useAuthForm = () => {
-  const { login, register } = useAuth()
+  const { login, register } = useUser()
   const { pathname } = useLocation()
 
   // Figure out what type of form we're dealing with

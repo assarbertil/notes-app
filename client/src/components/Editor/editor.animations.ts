@@ -1,18 +1,17 @@
-export const formMotion = {
+export const editorMotion = {
   initial: {
     opacity: 0,
-    y: 1024,
+    scale: 0.75,
   },
   animate: {
     opacity: 1,
-    y: 0,
+    scale: 1,
   },
   exit: {
     opacity: 0,
-    y: -1024,
+    scale: 0.75,
   },
   transition: {
-    type: "spring",
-    duration: 2,
+    duration: 0.5,
   },
 }

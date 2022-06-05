@@ -1,35 +1,29 @@
 import { useAtom } from "jotai"
 import { useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { accessTokenAtom } from "../store"
-import { useUser } from "./useUser"
+import { accessTokenAtom, routerGuardLockAtom } from "../store"
 
 // This protects routes that require a user to be logged in.
 // It checks if the user is logged in and redirects to the login page if not.
 
 export const useRouteGuard = () => {
-  const { user, isLoading } = useUser()
-  const [accessToken] = useAtom(accessTokenAtom)
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const [routerGuardLock] = useAtom(routerGuardLockAtom)
+  const [accessToken] = useAtom(accessTokenAtom)
 
   useEffect(() => {
-    console.log("Route guard: User loading?", isLoading)
+    // Makes it possible to override the guard
+    if (routerGuardLock) return
 
-    if (!isLoading) {
-      if (user && pathname.includes("/auth")) {
-        console.log("Main guard wants to redirect to dashboard")
+    // If the user is logged in, and tries to access auth routes, redirect to the dashboard
+    // if (accessToken && pathname.includes("/auth")) {
+    //   navigate("/dashboard")
+    // }
 
-        navigate("/dashboard")
-      }
-
-      if (!user && pathname.includes("/dashboard")) {
-        console.log("Main guard wants to redirect to auth")
-
-        navigate("/auth/login")
-      }
+    // If the user is logged out, and tries to access dashboard routes redirect to the login page
+    if (!accessToken && !pathname.includes("/auth")) {
+      navigate("/auth/login")
     }
-  }, [isLoading, accessToken, user, navigate, pathname])
-
-  useEffect(() => console.log("Route guard: Pathname:", pathname), [pathname])
+  }, [accessToken, navigate, pathname, routerGuardLock])
 }

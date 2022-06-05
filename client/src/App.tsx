@@ -1,48 +1,33 @@
 import { globalStyles } from "./globalStyles"
 import { Routes, Route, Outlet } from "react-router-dom"
-import { FullScreen } from "./components/layouts/FullScreen"
-import { Dashboard } from "./components/layouts/Dashboard"
-import { AuthForm } from "./components/AuthForm/"
-import { styled } from "./stitches.config"
-import { useAtom } from "jotai"
-import { accessTokenAtom } from "./store"
+import { Dashboard } from "./components/Dashboard"
+import { AuthForm } from "./components/AuthForm"
 import { useRouteGuard } from "./hooks/useRouteGuard"
+import { SWRConfig } from "swr"
+import { useAxios } from "./hooks/useAxios"
 
 export default function App() {
-  const [accessToken] = useAtom(accessTokenAtom)
   useRouteGuard()
-
   globalStyles()
+  const axios = useAxios()
+  const swrConfig = {
+    fetcher: (url: string) => axios.get(url).then(({ data }) => data),
+  }
 
   return (
-    <>
-      <Fixed>JWT: {accessToken === null ? "Null" : accessToken}</Fixed>
-
+    <SWRConfig value={swrConfig}>
       <Routes>
         <Route path="/" element={<Outlet />}>
-          <Route path="dashboard" element={<Dashboard />}>
-            <Route index element={<div>assar</div>} />
+          <Route path="notes" element={<Dashboard />}>
+            <Route path=":id" element={<Outlet />} />
           </Route>
 
-          <Route path="auth" element={<FullScreen />}>
+          <Route path="auth" element={<Outlet />}>
             <Route path="login" element={<AuthForm />} />
             <Route path="signup" element={<AuthForm />} />
           </Route>
         </Route>
       </Routes>
-    </>
+    </SWRConfig>
   )
 }
-
-const Fixed = styled("div", {
-  position: "fixed",
-  bottom: 4,
-  right: 4,
-  background: "$crimson9",
-  padding: "0.5rem 1rem",
-  maxWidth: "fit-content",
-  display: "block",
-  color: "#fff",
-  borderRadius: 4,
-  fontSize: 12,
-})

@@ -20,8 +20,7 @@ export const globalStyles = globalCss({
   },
 
   "#root": {
-    display: "flex",
-    maxHeight: "100vh",
+    height: "100%",
     maxWidth: "100vw",
     overflow: "hidden",
   },

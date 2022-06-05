@@ -11,7 +11,7 @@ export const Button = styled("button", {
 
   variants: {
     color: {
-      primary: {
+      blue: {
         color: "$blue11",
         background: "$blue4",
 
@@ -22,6 +22,18 @@ export const Button = styled("button", {
           cursor: "not-allowed",
         },
         "&:active": { background: "$blue4" },
+      },
+      crimson: {
+        color: "$crimson11",
+        background: "$crimson4",
+
+        "&:hover": { background: "$crimson3" },
+        "&:disabled": {
+          background: "$mauve4",
+          color: "$mauve11",
+          cursor: "not-allowed",
+        },
+        "&:active": { background: "$crimson4" },
       },
     },
     size: {
@@ -34,7 +46,7 @@ export const Button = styled("button", {
   },
 
   defaultVariants: {
-    color: "primary",
+    color: "blue",
     size: "base",
   },
 })
