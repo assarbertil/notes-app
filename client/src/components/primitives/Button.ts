@@ -12,11 +12,16 @@ export const Button = styled("button", {
   variants: {
     color: {
       primary: {
-        color: "$blue10",
-        background: "$blue5",
+        color: "$blue11",
+        background: "$blue4",
 
-        "&:hover": { background: "$blue4" },
-        "&:disabled": { background: "$mauve4", color: "$mauve10" },
+        "&:hover": { background: "$blue3" },
+        "&:disabled": {
+          background: "$mauve4",
+          color: "$mauve11",
+          cursor: "not-allowed",
+        },
+        "&:active": { background: "$blue4" },
       },
     },
     size: {

@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { isAuthed } from "../lib/isAuthed"
+import { isAuthed } from "../middleware/isAuthed.middleware"
 import { prisma } from "../utils/initPrisma"
 
 export const notesRouter = Router()

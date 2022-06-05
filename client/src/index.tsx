@@ -2,19 +2,17 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import App from "./App"
 import { SWRConfig } from "swr"
-import { axios } from "./utils/axiosInstance"
-import { AxiosRequestConfig } from "axios"
+import { BrowserRouter } from "react-router-dom"
 
-const swrConfig = {
-  fetcher: async (url: string, config: AxiosRequestConfig) =>
-    await axios.get(url, config),
-}
+const swrConfig = {}
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
   <React.StrictMode>
     <SWRConfig value={swrConfig}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </SWRConfig>
   </React.StrictMode>
 )

@@ -1,12 +1,8 @@
 import { atom } from "jotai"
 import { atomWithStorage } from "jotai/utils"
 
-type UserState = {
-  accessToken: string | null
-  isLoading: boolean
-}
-
-export const userAtom = atomWithStorage<UserState>("jwt", {
-  accessToken: null,
-  isLoading: true,
+export const accessTokenAtom = atomWithStorage<string>("jwt", "", {
+  getItem: (key) => localStorage.getItem(key) || "",
+  removeItem: (key) => localStorage.removeItem(key),
+  setItem: (key, newValue) => localStorage.setItem(key, newValue),
 })

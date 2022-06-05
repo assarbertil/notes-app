@@ -33,6 +33,7 @@ export const Flex = styled("div", {
       4: { gap: "0.25rem" },
       8: { gap: "0.5rem" },
       16: { gap: "1rem" },
+      24: { gap: "1.5rem" },
       32: { gap: "2rem" },
       48: { gap: "3rem" },
       64: { gap: "4rem" },

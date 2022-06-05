@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { CustomResponse } from "../interfaces/CustomResponse"
-import { isAuthed } from "../lib/isAuthed"
+import { isAuthed } from "../middleware/isAuthed.middleware"
 import { prisma } from "../utils/initPrisma"
 
 export const usersRouter = Router()

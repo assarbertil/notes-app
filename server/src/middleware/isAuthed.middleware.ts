@@ -12,6 +12,7 @@ export const isAuthed = (
   const authorization = req.headers["authorization"]
 
   if (!authorization) {
+    console.log("isAuth error: No authorization header")
     return res.status(401).send({ error: "not authenticated" })
   }
 

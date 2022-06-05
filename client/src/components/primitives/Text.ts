@@ -1,14 +1,19 @@
 import { styled } from "../../stitches.config"
 
 export const Text = styled("span", {
-  color: "#000",
   textDecoration: "none",
 
   variants: {
-    type: {
-      body: { fontSize: "1rem" },
+    size: {
+      large: { fontSize: "1.25rem" },
+      base: { fontSize: "1rem" },
+      small: { fontSize: "0.75rem" },
+    },
+    weight: {
+      bold: { fontWeight: "bold" },
+      normal: { fontWeight: "normal" },
     },
   },
 
-  defaultVariants: { type: "body" },
+  defaultVariants: { size: "base", weight: "normal" },
 })

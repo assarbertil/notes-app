@@ -4,7 +4,7 @@ import {
   generateAccessToken,
   generateRefreshToken,
   setRefreshTokenCookie,
-} from "../lib/jwt"
+} from "../helpers/jwt.helpers"
 import { prisma } from "../utils/initPrisma"
 const { verify } = jsonwebtoken
 import * as argon2 from "argon2"
@@ -76,6 +76,12 @@ authRouter.post("/login", async (req, res) => {
     user: { id: user.id, email: user.email },
     accessToken: generateAccessToken(user),
   })
+})
+
+authRouter.post("/logout", async (req, res) => {
+  setRefreshTokenCookie(res, "")
+  console.log("Logged out a user")
+  return res.send({ message: "Logged out" })
 })
 
 authRouter.post("/refresh_token", async (req, res) => {
