@@ -24,12 +24,38 @@ const main = async () => {
       {
         id: uuidv4(),
         title: "Assars första anteckning",
-        content: "Det här är innehållet av den första anteckningen",
+        content: {
+          type: "doc",
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                {
+                  type: "text",
+                  text: "Det här är innehållet av den första anteckningen",
+                },
+              ],
+            },
+          ],
+        },
       },
       {
         id: uuidv4(),
         title: "Assars andra anteckning",
-        content: "Det här är innehållet av den andra anteckningen",
+        content: {
+          type: "doc",
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                {
+                  type: "text",
+                  text: "Det här är innehållet av den andra anteckningen",
+                },
+              ],
+            },
+          ],
+        },
       },
     ],
   })

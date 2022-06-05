@@ -1,8 +1,6 @@
 import { useUser } from "../../hooks/useUser"
 import { Button } from "../primitives"
-import { dashboardMotion } from "./dashboard.animations"
-import { Container } from "./dashboard.children"
-import { Preview } from "../Preview"
+import { DashboardContainer } from "./dashboard.children"
 import { Editor } from "../Editor"
 import { NoteList } from "../NoteList"
 
@@ -10,15 +8,9 @@ export const Dashboard = () => {
   const { logout } = useUser()
 
   return (
-    <Container
-      initial={dashboardMotion.initial}
-      animate={dashboardMotion.animate}
-      exit={dashboardMotion.exit}
-      transition={dashboardMotion.transition}
-    >
+    <DashboardContainer>
       <NoteList />
-      <Editor isOpen={false} />
-      <Preview isOpen={false} />
+      <Editor />
 
       <Button
         color="crimson"
@@ -26,12 +18,11 @@ export const Dashboard = () => {
           position: "fixed",
           bottom: "1rem",
           left: "1rem",
-          boxShadow: "$sm",
         }}
         onClick={() => logout()}
       >
-        Log Out
+        Logga ut
       </Button>
-    </Container>
+    </DashboardContainer>
   )
 }

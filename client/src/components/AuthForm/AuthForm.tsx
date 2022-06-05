@@ -47,7 +47,7 @@ export const AuthForm = () => {
                   setShowForm(false)
                   setRouterGuardLock(false)
                   setTimeout(() => {
-                    navigate("/dashboard")
+                    navigate("/notes")
                     setShowForm(true)
                   }, 2000)
                 }

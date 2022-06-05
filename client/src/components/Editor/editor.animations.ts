@@ -1,17 +1,17 @@
 export const editorMotion = {
-  initial: {
-    opacity: 0,
-    scale: 0.75,
+  in: {
+    y: -1024,
   },
-  animate: {
-    opacity: 1,
-    scale: 1,
+  base: {
+    y: 0,
+    x: 0,
+    rotateZ: 0,
   },
-  exit: {
-    opacity: 0,
-    scale: 0.75,
+  out: {
+    y: -1024,
   },
   transition: {
-    duration: 0.5,
+    type: "spring",
+    damping: 15,
   },
 }

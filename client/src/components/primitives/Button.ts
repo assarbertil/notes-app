@@ -9,6 +9,12 @@ export const Button = styled("button", {
   justifyContent: "center",
   alignItems: "center",
 
+  "&:disabled": {
+    background: "$mauve4",
+    color: "$mauve11",
+    cursor: "not-allowed",
+  },
+
   variants: {
     color: {
       blue: {
@@ -16,11 +22,6 @@ export const Button = styled("button", {
         background: "$blue4",
 
         "&:hover": { background: "$blue3" },
-        "&:disabled": {
-          background: "$mauve4",
-          color: "$mauve11",
-          cursor: "not-allowed",
-        },
         "&:active": { background: "$blue4" },
       },
       crimson: {
@@ -28,14 +29,17 @@ export const Button = styled("button", {
         background: "$crimson4",
 
         "&:hover": { background: "$crimson3" },
-        "&:disabled": {
-          background: "$mauve4",
-          color: "$mauve11",
-          cursor: "not-allowed",
-        },
         "&:active": { background: "$crimson4" },
       },
+      grass: {
+        color: "$grass11",
+        background: "$grass4",
+
+        "&:hover": { background: "$grass3" },
+        "&:active": { background: "$grass4" },
+      },
     },
+
     size: {
       base: {
         fontSize: "1rem",

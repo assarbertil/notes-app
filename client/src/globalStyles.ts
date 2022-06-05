@@ -16,7 +16,7 @@ export const globalStyles = globalCss({
     lineHeight: 1.5,
     fontFamily: "$inter",
     color: "$blue12",
-    background: "$blue2",
+    background: "$blue3",
   },
 
   "#root": {

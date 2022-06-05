@@ -19,7 +19,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Outlet />}>
           <Route path="notes" element={<Dashboard />}>
-            <Route path=":id" element={<Outlet />} />
+            <Route path=":noteId" element={<Outlet />} />
           </Route>
 
           <Route path="auth" element={<Outlet />}>
