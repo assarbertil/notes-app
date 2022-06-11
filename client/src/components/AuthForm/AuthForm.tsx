@@ -7,7 +7,7 @@ import { styled } from "../../stitches.config"
 import { AnimatePresence, motion } from "framer-motion"
 import { formMotion } from "./authForm.animations"
 import { atom, useAtom } from "jotai"
-import { routerGuardLockAtom } from "../../store"
+import { loginErrorAtom, routerGuardLockAtom } from "../../store"
 
 const showFormAtom = atom(true)
 
@@ -16,6 +16,7 @@ export const AuthForm = () => {
   const { handleSubmit, authType } = useAuthForm()
   const [, setRouterGuardLock] = useAtom(routerGuardLockAtom)
   const [showForm, setShowForm] = useAtom(showFormAtom)
+  const [loginError] = useAtom(loginErrorAtom)
 
   return (
     <Container>
@@ -49,7 +50,7 @@ export const AuthForm = () => {
                   setTimeout(() => {
                     navigate("/notes")
                     setShowForm(true)
-                  }, 2000)
+                  }, 1000)
                 }
               }}
             >
@@ -81,6 +82,13 @@ export const AuthForm = () => {
                     <Button type="submit" disabled={isSubmitting}>
                       {authType === "login" ? "Sign in" : "Sign up"}
                     </Button>
+
+                    {loginError && (
+                      <Text css={{ textAlign: "center", color: "$crimson11" }}>
+                        {loginError}
+                      </Text>
+                    )}
+
                     <Flex justify="center" align="center">
                       <Line />
                       <Link

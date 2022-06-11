@@ -1,4 +1,4 @@
-import { globalStyles } from "./globalStyles"
+import { globalStyles } from "./styles"
 import { Routes, Route, Outlet } from "react-router-dom"
 import { Dashboard } from "./components/Dashboard"
 import { AuthForm } from "./components/AuthForm"
@@ -19,6 +19,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Outlet />}>
           <Route path="notes" element={<Dashboard />}>
+            <Route path="write" element={<Outlet />} />
             <Route path=":noteId" element={<Outlet />} />
           </Route>
 

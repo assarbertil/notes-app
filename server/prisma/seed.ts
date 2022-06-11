@@ -18,12 +18,12 @@ const main = async () => {
         password: await argon2.hash("password"),
       },
     ],
+    skipDuplicates: true,
   })
   await prisma.note.createMany({
     data: [
       {
         id: uuidv4(),
-        title: "Assars första anteckning",
         content: {
           type: "doc",
           content: [
@@ -41,7 +41,6 @@ const main = async () => {
       },
       {
         id: uuidv4(),
-        title: "Assars andra anteckning",
         content: {
           type: "doc",
           content: [
@@ -58,6 +57,7 @@ const main = async () => {
         },
       },
     ],
+    skipDuplicates: true,
   })
 }
 

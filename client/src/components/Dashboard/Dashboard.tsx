@@ -1,11 +1,11 @@
-import { useUser } from "../../hooks/useUser"
+import { useAuth } from "../../hooks/useAuth"
 import { Button } from "../primitives"
 import { DashboardContainer } from "./dashboard.children"
 import { Editor } from "../Editor"
 import { NoteList } from "../NoteList"
 
 export const Dashboard = () => {
-  const { logout } = useUser()
+  const { logout } = useAuth()
 
   return (
     <DashboardContainer>

@@ -1,124 +1,76 @@
 import { useAtom } from "jotai"
 import { FC, useCallback } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import {
-  activeNoteContentAtom,
-  editModeAtom,
-  unsavedChangesAtom,
-} from "../../store"
+import { editModeAtom, unsavedChangesAtom } from "../../store"
 import { Text } from "../primitives"
-import { NoteButton, NoteContainer } from "./note.children"
+import { ButtonContainer, NoteButton, NoteContainer } from "./note.children"
 import { CrossIcon, CheckIcon, EditIcon, DeleteIcon } from "../Icons"
-import { useNoteCrud } from "./useNoteCrud"
-import { useActiveNote } from "../../hooks/useActiveNote"
+import { useNote } from "./useNote"
+import { noteMotion } from "./note.animationts"
+import { JSONContent } from "@tiptap/react"
 
 interface Props {
   id: string
-  title: string
+  content: JSONContent | undefined
 }
 
-export const Note: FC<Props> = ({ id, title }) => {
-  const { postNote, updateNote, deleteNote } = useNoteCrud()
+export const Note: FC<Props> = ({ id, content }) => {
+  const { editNote, cancelEditing, saveNote, deleteNote } = useNote()
   const [unsavedChanges] = useAtom(unsavedChangesAtom)
-  const [editMode, setEditMode] = useAtom(editModeAtom)
-  const [activeNoteContent, setActiveNoteContent] = useAtom(
-    activeNoteContentAtom
-  )
-  const activeNote = useActiveNote()
+  const [editMode] = useAtom(editModeAtom)
   const navigate = useNavigate()
   const { noteId } = useParams()
-  const active = noteId === id
+  const isSelected = noteId === id
 
+  // On note select, go to noteId url
+  // On note deselect, go back
   const handleClick = useCallback(() => {
-    if (active) {
+    if (isSelected) {
       if (!editMode) {
         navigate("/notes")
       }
     } else {
       navigate(`/notes/${id}`)
     }
-  }, [active, navigate, id, editMode])
+  }, [isSelected, navigate, id, editMode])
 
   return (
     <NoteContainer
       onClick={handleClick}
-      active={active}
-      softDisable={editMode && !active}
-      disabled={editMode && !active}
+      active={isSelected}
+      softDisable={editMode && !isSelected}
+      disabled={editMode && !isSelected}
+      variants={noteMotion}
     >
       <article>
         <Text as="h2" weight="bold" css={{ paddingBottom: "0.125rem" }}>
-          {title}{" "}
-          {active && unsavedChanges && editMode && (
-            <Text css={{ opacity: 0.5, fontSize: "0.875rem" }}>(Ändrad)</Text>
+          {"content?.content?.content[0].content[0].text"}
+          {isSelected && unsavedChanges && editMode && (
+            <Text css={{ opacity: 0.5, fontSize: "0.875rem" }}> (Ändrad)</Text>
           )}
         </Text>
       </article>
-      {active && !editMode && (
-        <div>
-          <NoteButton
-            onClick={(e) => {
-              e.stopPropagation()
-              setEditMode(true)
-            }}
-          >
+
+      {isSelected && !editMode && (
+        <ButtonContainer>
+          <NoteButton onClick={editNote}>
             <EditIcon />
           </NoteButton>
-          <NoteButton
-            color="crimson"
-            onClick={(e) => {
-              e.stopPropagation()
-
-              if (window.confirm("Är du säker på att du vill radera?")) {
-                deleteNote(id)
-              }
-            }}
-          >
+          <NoteButton onClick={(e) => deleteNote(e, id)} color="crimson">
             <DeleteIcon />
           </NoteButton>
-        </div>
+        </ButtonContainer>
       )}
 
-      {active && editMode && (
-        <div>
-          <NoteButton
-            onClick={async (e) => {
-              e.stopPropagation()
-
-              // Post the note
-              if (activeNote) {
-                console.log("Should post note")
-
-                await updateNote({
-                  id: activeNote.id,
-                  title: activeNote.title,
-                  content: activeNoteContent,
-                })
-              } else {
-                console.log("No active note")
-              }
-
-              setEditMode(false)
-            }}
-            color="grass"
-          >
+      {isSelected && editMode && (
+        <ButtonContainer>
+          <NoteButton onClick={saveNote} color="grass">
             <CheckIcon />
           </NoteButton>
-          <NoteButton
-            onClick={(e) => {
-              e.stopPropagation()
-
-              // prettier-ignore
-              if (window.confirm("Är du säker på att du vill raderad den här anteckningen?")) {
-                setActiveNoteContent(undefined)
-                setEditMode(false)
-              }
-            }}
-            color="crimson"
-          >
+          <NoteButton onClick={cancelEditing} color="crimson">
             <CrossIcon />
           </NoteButton>
-        </div>
+        </ButtonContainer>
       )}
     </NoteContainer>
   )

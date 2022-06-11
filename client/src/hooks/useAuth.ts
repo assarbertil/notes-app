@@ -3,15 +3,13 @@ import { accessTokenAtom } from "../store"
 import { AuthApiResponse } from "../types/AuthApiResponse"
 import { useAxios } from "./useAxios"
 import { toast } from "react-hot-toast"
-import useSWR from "swr"
-import { User } from "../types/User"
+import { AxiosError } from "axios"
 
 // Dealing with auth functions and state
 
-export const useUser = () => {
-  const [accessToken, setAccessToken] = useAtom(accessTokenAtom)
+export const useAuth = () => {
+  const [, setAccessToken] = useAtom(accessTokenAtom)
   const axios = useAxios()
-  const { data, mutate, error } = useSWR<User>(accessToken ? "/users/me" : null)
 
   // Register function
   const register = async (email: string, password: string) => {
@@ -24,17 +22,11 @@ export const useUser = () => {
       setAccessToken(data.accessToken)
       toast.success("Logged in!")
 
-      return {
-        data,
-        error: null,
-      }
+      return { data }
     } catch (err) {
-      console.error(err)
+      const error = err as AxiosError<AuthApiResponse>
 
-      return {
-        data: null,
-        err,
-      }
+      return { error }
     }
   }
 
@@ -49,17 +41,11 @@ export const useUser = () => {
       setAccessToken(data.accessToken)
       toast.success("Logged in!")
 
-      return {
-        data,
-        error: null,
-      }
+      return { data }
     } catch (err) {
-      console.error(err)
+      const error = err as AxiosError<AuthApiResponse>
 
-      return {
-        data: null,
-        err,
-      }
+      return { error }
     }
   }
 
@@ -68,17 +54,17 @@ export const useUser = () => {
     try {
       await axios.post("/auth/logout")
       setAccessToken("")
+
+      return { ok: true }
     } catch (err) {
-      console.error("Logout error", err)
+      const error = err as Error | AxiosError
+
+      return { error }
     }
   }
 
   // Return user data and auth functions
   return {
-    isLoading: !data && !error,
-    user: data,
-    mutate,
-
     register,
     login,
     logout,

@@ -1,6 +1,7 @@
+import { motion } from "framer-motion"
 import { styled } from "../../stitches.config"
 
-export const NoteContainer = styled("button", {
+export const NoteContainer = styled(motion.button, {
   boxShadow: "$sm",
   padding: "0 1rem",
   height: "4rem",
@@ -42,7 +43,16 @@ export const NoteContainer = styled("button", {
   },
 })
 
-export const NoteButton = styled("button", {
+export const ButtonContainer = styled("div", {
+  display: "flex",
+  flexDirection: "row",
+})
+
+export const NoteButton = styled("span", {
+  display: "flex",
+
+  alignItems: "center",
+  justifyContent: "center",
   border: 0,
   background: "transparent",
   padding: "0.5rem",

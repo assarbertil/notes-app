@@ -4,4 +4,5 @@ export type AuthApiResponse = {
     id: number
     email: string
   }
+  error?: string
 }

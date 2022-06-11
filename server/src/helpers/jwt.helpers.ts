@@ -17,6 +17,6 @@ export const generateRefreshToken = (user: User) =>
 export const setRefreshTokenCookie = (res: Response, token: string) =>
   res.cookie("jid", token, {
     httpOnly: true,
-    // path: "/refresh_token", // This sometimes breaks setting the cookie
+    path: "/refresh_token", // This sometimes breaks setting the cookie
     sameSite: "strict",
   })

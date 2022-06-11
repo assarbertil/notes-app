@@ -1,6 +1,7 @@
+import { motion } from "framer-motion"
 import { styled } from "../../stitches.config"
 
-export const Flex = styled("div", {
+export const Flex = styled(motion.div, {
   boxSizing: "border-box",
   display: "flex",
 

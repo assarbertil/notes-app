@@ -7,7 +7,7 @@ export const EditorContainer = styled(motion.div, {
 })
 
 export const EditorWrapper = styled(motion.div, {
-  padding: "2rem",
+  padding: "4rem 10rem 4rem 6rem",
   borderRadius: "1rem",
   background: "#fff",
   boxShadow: "$sm",
@@ -27,14 +27,50 @@ export const EditorContent = styled(EditorElement, {
   },
 })
 
-export const EditLabel = styled("span", {
-  background: "$crimson9",
-  fontSize: "0.875rem",
-  fontWeight: 700,
-  color: "#fff",
-  padding: "0.25rem 0.75rem",
+export const Toolbar = styled(motion.div, {
   position: "absolute",
   top: 0,
-  right: "4rem",
-  borderRadius: "0 0 0.5rem 0.5rem",
+  right: 0,
+  width: "4rem",
+  height: "100%",
+  paddingTop: "2rem",
+  display: "flex",
+  flexDirection: "column",
+  rowGap: "0.5rem",
+  alignItems: "center",
+  background: "$amber2",
+  borderRadius: "0 1rem 1rem 0",
+})
+
+export const EditLabel = styled("p", {
+  background: "$amber4",
+
+  padding: "0.5rem",
+  textAlign: "center",
+  fontSize: "0.875rem",
+  fontWeight: 700,
+  color: "$amber12",
+  width: "100%",
+})
+
+export const ButtonContainer = styled(motion.div, {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "2.5rem",
+  height: "2.5rem",
+  borderRadius: 6,
+  cursor: "pointer",
+  transition: "background 0.2s ease-in-out",
+
+  "&:hover": {
+    transition: "background 0s ease-in-out",
+    background: "$amber4",
+  },
+})
+
+export const Divider = styled(motion.div, {
+  width: "100%",
+  height: 1,
+  background: "$amber4",
 })

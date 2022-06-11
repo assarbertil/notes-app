@@ -15,6 +15,5 @@ model User {
 
 model Note {
   id          String   @id
-  title       String   @db.VarChar(255)
   content     Json?
 }

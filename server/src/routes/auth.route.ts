@@ -52,7 +52,7 @@ authRouter.post("/register", async (req, res) => {
 authRouter.post("/login", async (req, res) => {
   const { email, password } = req.body
 
-  if (typeof email !== "string" || typeof password !== "string") {
+  if (!(typeof email === "string" && typeof password === "string")) {
     console.log("Login error: Missing email or password")
     return res.status(400).send({ error: "Email and password are required" })
   }
@@ -60,13 +60,13 @@ authRouter.post("/login", async (req, res) => {
   const user = await prisma.user.findUnique({ where: { email } })
   if (!user) {
     console.log("Login error: Entered email does not exist")
-    return res.status(401).send({ error: "No user found" })
+    return res.status(404).send({ error: "No user found" })
   }
 
   const isValid = await argon2.verify(user.password, password)
   if (!isValid) {
     console.log("Login error: Wrong password")
-    return res.status(401).send({ error: "Incorrect password" })
+    return res.status(403).send({ error: "Incorrect password" })
   }
 
   setRefreshTokenCookie(res, generateRefreshToken(user))

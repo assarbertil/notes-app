@@ -29,22 +29,22 @@ notesRouter.get("/:id", isAuthed, async (req, res) => {
 
 // Create a new note
 notesRouter.post("/", isAuthed, async (req, res) => {
-  const { title, content } = req.body
+  const { content } = req.body
 
-  if (!title || !content) {
-    console.log("Note error: Missing title or content")
-    return res.status(400).send({ error: "title and content are required" })
+  if (!content) {
+    console.log("Note error: Missing content")
+    return res.status(400).send({ error: "Content is required" })
   }
   let note
   try {
-    note = await prisma.note.create({ data: { id: uuidv4(), title, content } })
+    note = await prisma.note.create({ data: { id: uuidv4(), content } })
   } catch (err) {
     console.log(err.message)
     return res.status(400).send({ error: err.message })
   }
 
   console.log("Note successfully created")
-  return res.json(note)
+  return res.json(await prisma.note.findMany())
 })
 
 // Delete a note by id
@@ -71,7 +71,7 @@ notesRouter.delete("/:id", isAuthed, async (req, res) => {
 // Update a note by id
 notesRouter.put("/:id", isAuthed, async (req, res) => {
   const { id: noteId } = req.params
-  const { title, content } = req.body
+  const { content } = req.body
 
   if (!noteId) {
     console.log("Note error: Missing id")
@@ -82,7 +82,7 @@ notesRouter.put("/:id", isAuthed, async (req, res) => {
   try {
     note = await prisma.note.update({
       where: { id: noteId },
-      data: { title, content },
+      data: { content },
     })
   } catch (err) {
     console.log(err.message)
@@ -90,5 +90,5 @@ notesRouter.put("/:id", isAuthed, async (req, res) => {
   }
 
   console.log("Note successfully updated")
-  return res.json(note)
+  return res.json(await prisma.note.findMany())
 })

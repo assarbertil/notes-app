@@ -4,8 +4,6 @@ export const editorMotion = {
   },
   base: {
     y: 0,
-    x: 0,
-    rotateZ: 0,
   },
   out: {
     y: -1024,
@@ -13,5 +11,20 @@ export const editorMotion = {
   transition: {
     type: "spring",
     damping: 15,
+  },
+}
+
+export const toolbarMotion = {
+  in: {
+    opacity: 0,
+  },
+  base: {
+    opacity: 1,
+  },
+  out: {
+    opacity: 0,
+  },
+  transition: {
+    type: "ease",
   },
 }
