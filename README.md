@@ -7,14 +7,12 @@
 1. I rotmappen finns en docker-compose fil med en konfigurerad MySQL-container. Kör filen genom att skriva `docker-compose up` i mappen (kräver docker).
 2. När du startat containern skapar du en `.env`-fil i mappen `server` och skriver `DATABASE_URL="mysql://root:root@localhost:3306/notes"`. Den här filen kommer fyllas med fler variabler i senare steg.
 3. Kör skriptet `db-deploy` från `package.json` för att applicera migreringar och seed:a databasen.
-4. Klart.
 
 ### Svårare sättet
 
 1. Starta en MySQL-server på valfritt sätt. Skapa en databas på servern som måste heta `notes`.
 2. När databasen är igång skapar du en `.env`-fil i mappen `server` och skriver `DATABASE_URL="mysql://<ditt användarnamn>:<ditt lösenord>@<ditt hostname>:<din port>/notes"`. Den här filen kommer fyllas med fler variabler i senare steg.
 3. Kör skriptet `yarn run db-deploy` i mappen `server` för att applicera migreringar och seed:a databasen.
-4. Klart.
 
 ## API-servern
 1. Fyll `.env`-filen med resterande variabler efter följande modell:
@@ -31,7 +29,8 @@ REFRESH_TOKEN_SECRET="<valfri hash>"
 
 ### Utvecklingsläge
 
-1. Kör `yarn run start` i mappen `client` för att starta servern i utvecklingsläge.
+1. Skapa en `.env`-fil i mappen `client` och fyll i `REACT_APP_BACKEND_URL="http://localhost:4000"`
+2. Kör `yarn run start` i mappen `client` för att starta servern i utvecklingsläge.
 
 ### Produktionsläge
 
