@@ -59,7 +59,9 @@ export const Note: FC<Props> = ({ id, content }) => {
             width: "100%",
           }}
         >
-          {content?.content?.[0]?.content?.[0]?.text || "Odöpt anteckning"}
+          {content?.content?.[0]?.content?.[0]?.text ||
+            content?.[0]?.content?.[0]?.text ||
+            "Odöpt anteckning"}
           {isSelected && unsavedChanges && editMode && (
             <Text css={{ opacity: 0.5, fontSize: "0.875rem" }}> (Ändrad)</Text>
           )}

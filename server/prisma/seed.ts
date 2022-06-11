@@ -24,7 +24,6 @@ const main = async () => {
   // Create default notes
   await prisma.note.createMany({
     data: notes.map((note) => ({ content: note })),
-    skipDuplicates: true,
   })
 }
 
