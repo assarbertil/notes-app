@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "setup-db": "npx prisma db push && ts-node prisma/seed.ts --swc",
-    "start": "ts-node src/index.ts --swc",
-    "dev": "nodemon --exec ts-node src/index.ts --swc"
+    "db-dev": "npx prisma db push && ts-node prisma/seed.ts --swc",
+    "db-deploy": "npx prisma migrate deploy && npx prisma db seed",
+    "api-start": "ts-node src/index.ts --swc",
+    "api-dev": "nodemon --exec ts-node src/index.ts --swc"
   },
   "keywords": [],
   "author": "Assar C",

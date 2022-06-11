@@ -8,12 +8,12 @@ datasource db {
 }
 
 model User {
-  id       String @id
+  id       String @id @default(uuid())
   email    String @unique
   password String
 }
 
 model Note {
-  id          String   @id
+  id          String @id @default(uuid())
   content     Json?
 }
