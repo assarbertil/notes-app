@@ -37,18 +37,26 @@ REFRESH_TOKEN_SECRET="<valfri hash>"
 1. Kör `yarn run build` i mappen `client`.
 2. Gå till `/build` och kör `npx serve`.
 
+## Förinställda användare
 
-## Nämnvärda paket
+Du kan alltid registrera ditt egna konto men om du inte vill det kan du använda:
+
+**Användarnamn:** sam@smith.com
+
+**Lösenord:** password
+
+
+# Nämnvärda paket
 
 Jag såg det här som en god chans att använda många av mina mest omtyckta paket. Jag hade sannolikt inte använt alla i ett verkligt scenario.
 
-- SWR. Hjälper oss hantera server state, data fetching och optimistic UI.
-- Jotai. Ett state management-bibliotek som tar en "atom"-approach. Man behöver inte bygga en store utan en state-variablel är inget mer än en variabel som kan importeras över hela projektet och orsakar inga onödiga renderingar. Liknar Facebooks Recoil.
-- Axios. Självklart val på grund av den automatiska felhanteringen. Tar man emot ett svar med en HTTP-kod utanför 200-spannet så låter Axios en veta det tydligare en den inbyggda fetch-API:n.
-- Stitches. Likt Styled-components men det låter en på väldigt enkelt vis bygga egna komponenter med varianter, t.ex `<Button size="large" color="primary" shadow></Button>`
-- Formik. Gör det enkelt att ta emot och arbeta med formulärdata. Används bara på inloggningssidan i detta projektet.
-- Framer Motion. Bibliotek för animering. Snuddar på att vara för prestandakrävande och gör sidan mindre tillgänlig men den ser fin ut.
-- react-hot-toast. Ett bibliotek för "toasts". Första gången jag använde det och använde bara det för att visa att man loggades in.
+- **SWR**. Hjälper oss hantera server state, data fetching och optimistic UI.
+- **Jotai**. Ett state management-bibliotek som tar en "atom"-approach. Man behöver inte bygga en store utan en state-variablel är inget mer än en variabel som kan importeras över hela projektet och orsakar inga onödiga renderingar. Liknar Facebooks Recoil.
+- **Axios**. Självklart val på grund av den automatiska felhanteringen. Tar man emot ett svar med en HTTP-kod utanför 200-spannet så låter Axios en veta det tydligare en den inbyggda fetch-API:n.
+- **Stitches**. Likt Styled-components men det låter en på väldigt enkelt vis bygga egna komponenter med varianter, t.ex `<Button size="large" color="primary" shadow></Button>`
+- **Formik**. Gör det enkelt att ta emot och arbeta med formulärdata. Används bara på inloggningssidan i detta projektet.
+- **Framer Motion**. Bibliotek för animering. Snuddar på att vara för prestandakrävande och gör sidan mindre tillgänlig men den ser fin ut.
+- **react-hot-toast**. Ett bibliotek för "toasts". Första gången jag använde det och använde bara det för att visa att man loggades in.
 
 
 # JWT authentication
