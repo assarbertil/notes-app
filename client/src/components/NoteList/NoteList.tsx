@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion"
 import { useAtom } from "jotai"
 import { useNavigate } from "react-router-dom"
-import { useNotes } from "../../hooks/useNotes"
+import { useNotes } from "../../hooks/useFetchNotes"
 import { editModeAtom, editorContentAtom } from "../../store"
 import type { Note as NoteType } from "../../types/Note"
 import { Note } from "../Note"
@@ -88,7 +88,12 @@ export const NoteList = () => {
       </Flex>
       <AnimatePresence>
         {notes && (
-          <motion.div variants={noteListMotion} initial="hidden" animate="show">
+          <motion.div
+            variants={noteListMotion}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+          >
             {notes?.map(({ id, content }) => (
               <Note key={id} id={id} content={content} />
             ))}

@@ -53,7 +53,6 @@ export const Editor = () => {
     onUpdate: ({ editor }) => {
       setUnsavedChanges(true)
       setEditorContent(editor.getJSON())
-      console.log(editor.getJSON())
     },
   })
 

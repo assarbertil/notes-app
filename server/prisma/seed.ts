@@ -70,4 +70,4 @@ main()
     await prisma.$disconnect()
   })
 
-console.log("Database seeded")
+console.info("Database seeded")

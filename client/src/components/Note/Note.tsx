@@ -3,7 +3,12 @@ import { FC, useCallback } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { editModeAtom, unsavedChangesAtom } from "../../store"
 import { Text } from "../primitives"
-import { ButtonContainer, NoteButton, NoteContainer } from "./note.children"
+import {
+  Article,
+  ButtonContainer,
+  NoteButton,
+  NoteContainer,
+} from "./note.children"
 import { CrossIcon, CheckIcon, EditIcon, DeleteIcon } from "../Icons"
 import { useNote } from "./useNote"
 import { noteMotion } from "./note.animationts"
@@ -42,21 +47,31 @@ export const Note: FC<Props> = ({ id, content }) => {
       disabled={editMode && !isSelected}
       variants={noteMotion}
     >
-      <article>
-        <Text as="h2" weight="bold" css={{ paddingBottom: "0.125rem" }}>
-          {"content?.content?.content[0].content[0].text"}
+      <Article>
+        <Text
+          as="h2"
+          weight="bold"
+          css={{
+            paddingBottom: "0.125rem",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            width: "100%",
+          }}
+        >
+          {content?.content?.[0]?.content?.[0]?.text || "Odöpt anteckning"}
           {isSelected && unsavedChanges && editMode && (
             <Text css={{ opacity: 0.5, fontSize: "0.875rem" }}> (Ändrad)</Text>
           )}
         </Text>
-      </article>
+      </Article>
 
       {isSelected && !editMode && (
         <ButtonContainer>
           <NoteButton onClick={editNote}>
             <EditIcon />
           </NoteButton>
-          <NoteButton onClick={(e) => deleteNote(e, id)} color="crimson">
+          <NoteButton onClick={deleteNote} color="crimson">
             <DeleteIcon />
           </NoteButton>
         </ButtonContainer>

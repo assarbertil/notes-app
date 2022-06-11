@@ -7,6 +7,7 @@ export const NoteContainer = styled(motion.button, {
   height: "4rem",
   background: "transparent",
   width: "100%",
+  maxWidth: "100%",
   border: 0,
   font: "inherit",
   marginBottom: "1rem",
@@ -18,6 +19,7 @@ export const NoteContainer = styled(motion.button, {
   justifyContent: "space-between",
   alignItems: "center",
   transition: "opacity 0.2s ease-in-out",
+  textAlign: "left",
 
   "&:active": { background: "$blue2" },
 
@@ -42,6 +44,8 @@ export const NoteContainer = styled(motion.button, {
     },
   },
 })
+
+export const Article = styled("article", { width: "calc(100% - 5rem)" })
 
 export const ButtonContainer = styled("div", {
   display: "flex",

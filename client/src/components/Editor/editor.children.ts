@@ -17,6 +17,9 @@ export const EditorWrapper = styled(motion.div, {
 
 export const EditorContent = styled(EditorElement, {
   height: "100%",
+  overflowY: "auto",
+  scrollbarColor: "$blue12",
+  scrollbarWidth: "thin",
 
   ".ProseMirror": {
     height: "100%",

@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { useParams } from "react-router-dom"
-import { useNotes } from "./useNotes"
+import { useNotes } from "./useFetchNotes"
 
 export const useActiveNote = () => {
   const { noteId } = useParams()

@@ -27,26 +27,6 @@ notesRouter.get("/:id", isAuthed, async (req, res) => {
   return res.json(note)
 })
 
-// Create a new note
-notesRouter.post("/", isAuthed, async (req, res) => {
-  const { content } = req.body
-
-  if (!content) {
-    console.log("Note error: Missing content")
-    return res.status(400).send({ error: "Content is required" })
-  }
-  let note
-  try {
-    note = await prisma.note.create({ data: { id: uuidv4(), content } })
-  } catch (err) {
-    console.log(err.message)
-    return res.status(400).send({ error: err.message })
-  }
-
-  console.log("Note successfully created")
-  return res.json(await prisma.note.findMany())
-})
-
 // Delete a note by id
 notesRouter.delete("/:id", isAuthed, async (req, res) => {
   const { id: noteId } = req.params
@@ -65,11 +45,11 @@ notesRouter.delete("/:id", isAuthed, async (req, res) => {
   }
 
   console.log("Note successfully deleted")
-  return res.json(note)
+  return res.json(await prisma.note.findMany())
 })
 
-// Update a note by id
-notesRouter.put("/:id", isAuthed, async (req, res) => {
+// Create a new note or edit an existing note
+notesRouter.post("/:id", isAuthed, async (req, res) => {
   const { id: noteId } = req.params
   const { content } = req.body
 
@@ -78,17 +58,33 @@ notesRouter.put("/:id", isAuthed, async (req, res) => {
     return res.status(400).send({ error: "author id is required" })
   }
 
-  let note
-  try {
-    note = await prisma.note.update({
-      where: { id: noteId },
-      data: { content },
-    })
-  } catch (err) {
-    console.log(err.message)
-    return res.status(400).send({ error: err.message })
+  // Make a post request with the id `new` to create a new note
+  if (noteId === "new") {
+    try {
+      const note = await prisma.note.create({ data: { id: uuidv4(), content } })
+
+      if (note) {
+        console.log("Note successfully created")
+      }
+    } catch (err) {
+      console.log(err.message)
+
+      return res.status(400).send({ error: err.message })
+    }
+  } else {
+    try {
+      await prisma.note.update({
+        where: { id: noteId },
+        data: { content },
+      })
+
+      console.log("Note successfully updated")
+    } catch (err) {
+      console.log(err.message)
+
+      return res.status(400).send({ error: err.message })
+    }
   }
 
-  console.log("Note successfully updated")
   return res.json(await prisma.note.findMany())
 })

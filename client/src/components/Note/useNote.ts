@@ -1,8 +1,9 @@
 import { useAtom } from "jotai"
 import { MouseEvent } from "react"
+import { useNavigate } from "react-router-dom"
 import { useActiveNote } from "../../hooks/useActiveNote"
 import { useAxios } from "../../hooks/useAxios"
-import { useNotes } from "../../hooks/useNotes"
+import { useNotes } from "../../hooks/useFetchNotes"
 import {
   editModeAtom,
   editorContentAtom,
@@ -19,6 +20,7 @@ export const useNote = () => {
   const { notes, mutate } = useNotes()
   const [originalContent] = useAtom(originalContentAtom)
   const [editorContent, setEditorContent] = useAtom(editorContentAtom)
+  const navigate = useNavigate()
 
   // Post or update
   const saveNote = async (e: MouseEvent<HTMLSpanElement>) => {
@@ -26,15 +28,12 @@ export const useNote = () => {
 
     if (!notes || !activeNote) return
 
-    // This means we're editing an existing note
-
     const note: Note = {
       id: activeNote.id,
       content: editorContent,
     }
 
-    // Check if note exists in the local list of notes.
-    // That tells if it's been saved before and should be updated instead of posted
+    // Optimistically update the note in the store
     const noteIndex = notes.findIndex((n) => n.id === note.id)
     const newNotes = [...notes]
     newNotes[noteIndex] = note
@@ -45,7 +44,7 @@ export const useNote = () => {
     }
 
     mutate(async () => {
-      const { data } = await axios.post("/notes", note)
+      const { data } = await axios.post(`/notes/${note.id}`, note)
 
       return data
     }, mutateOptions)
@@ -54,25 +53,33 @@ export const useNote = () => {
     setEditMode(false)
   }
 
-  const deleteNote = async (e: MouseEvent<HTMLSpanElement>, noteId: string) => {
+  const deleteNote = async (e: MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation()
 
     if (!window.confirm("Är du säker på att du vill radera anteckningen?")) {
       return
     }
 
-    try {
-      const { data } = await axios.delete(`/notes/${noteId}`)
+    if (!notes || !activeNote) return
 
-      return { data }
-    } catch (err) {
-      return { err }
+    const mutateOptions = {
+      optimisticData: notes.filter((note) => note.id !== activeNote.id),
+      rollbackOnError: true,
     }
+
+    mutate(async () => {
+      const { data } = await axios.delete(`/notes/${activeNote.id}`)
+
+      return data
+    }, mutateOptions)
+
+    navigate("/notes")
   }
 
   const editNote = (e: MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation()
     setEditMode(true)
+    setEditorContent(undefined)
   }
 
   // On cancel button click, set edit mode to false and revert to original content

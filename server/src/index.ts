@@ -20,5 +20,5 @@ app.use("/users", usersRouter)
 app.use("/notes", notesRouter)
 
 app.listen(port, () => {
-  console.log(`Listening on port http://localhost:${port}`)
+  console.info(`Listening on port http://localhost:${port}`)
 })
