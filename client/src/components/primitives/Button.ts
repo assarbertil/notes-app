@@ -8,6 +8,8 @@ export const Button = styled("button", {
   flexShrink: 0,
   justifyContent: "center",
   alignItems: "center",
+  transition: "background 0.2s ease-in-out",
+  "&:hover": { transition: "background 0s ease-in-out" },
 
   "&:disabled": {
     background: "$mauve4",

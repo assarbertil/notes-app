@@ -28,4 +28,14 @@ export const globalStyles = globalCss({
   "::selection": {
     backgroundColor: "#0180ff44",
   },
+
+  ".ProseMirror > ul, .ProseMirror > ol": {
+    paddingLeft: "1.25rem",
+  },
+
+  ".ProseMirror > blockquote": {
+    paddingLeft: "1.25rem",
+    borderLeft: "1px solid $mauve9",
+    fontStyle: "italic",
+  },
 })

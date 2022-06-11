@@ -18,8 +18,9 @@ export const NoteContainer = styled(motion.button, {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  transition: "opacity 0.2s ease-in-out",
   textAlign: "left",
+  transition: "background 0.2s ease-in-out",
+  "&:hover": { transition: "background 0s ease-in-out" },
 
   "&:active": { background: "$blue2" },
 
@@ -27,7 +28,8 @@ export const NoteContainer = styled(motion.button, {
     active: {
       false: {
         outline: "2px dashed $blue6",
-        color: "$mauve11",
+        color: "$blue9",
+        opacity: 0.5,
         "&:hover": { background: "$blue4" },
       },
       true: {
@@ -37,10 +39,7 @@ export const NoteContainer = styled(motion.button, {
     },
 
     softDisable: {
-      true: {
-        cursor: "not-allowed",
-        opacity: 0.5,
-      },
+      true: { cursor: "not-allowed" },
     },
   },
 })
@@ -50,6 +49,7 @@ export const Article = styled("article", { width: "calc(100% - 5rem)" })
 export const ButtonContainer = styled("div", {
   display: "flex",
   flexDirection: "row",
+  columnGap: "0.5rem",
 })
 
 export const NoteButton = styled("span", {
@@ -63,6 +63,8 @@ export const NoteButton = styled("span", {
   cursor: "pointer",
   aspectRatio: 1,
   borderRadius: "0.25rem",
+  transition: "background 0.2s ease-in-out",
+  "&:hover": { transition: "background 0s ease-in-out" },
 
   variants: {
     color: {
