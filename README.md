@@ -1,13 +1,63 @@
-## Available Scripts
+# Instruktion
 
-In the client directory, you can run:
+## Databasen
 
-### Client:
+### Docker-sättet (kräver docker)
 
-`yarn start`
+1. I rotmappen finns en docker-compose fil med en konfigurerad MySQL-container. Kör filen genom att skriva `docker-compose up` i mappen (kräver docker).
+2. När du startat containern skapar du en `.env`-fil i mappen `server` och skriver `DATABASE_URL="mysql://root:root@localhost:3306/notes"`. Den här filen kommer fyllas med fler variabler i senare steg.
+3. Kör skriptet `db-deploy` från `package.json` för att applicera migreringar och seed:a databasen.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Svårare sättet
+
+1. Starta en MySQL-server på valfritt sätt. Skapa en databas på servern som måste heta `notes`.
+2. När databasen är igång skapar du en `.env`-fil i mappen `server` och skriver `DATABASE_URL="mysql://<ditt användarnamn>:<ditt lösenord>@<ditt hostname>:<din port>/notes"`. Den här filen kommer fyllas med fler variabler i senare steg.
+3. Kör skriptet `yarn run db-deploy` i mappen `server` för att applicera migreringar och seed:a databasen.
+
+## API-servern
+1. Fyll `.env`-filen med resterande variabler efter följande modell:
+```
+DATABASE_URL=<samma som ovan>
+FRONTEND_URL="http://localhost:3000"
+PORT=4000
+ACCESS_TOKEN_SECRET="<valfri hash>"
+REFRESH_TOKEN_SECRET="<valfri hash>"
+```
+2. Kör `yarn run api-start` i mappen `server` för att starta servern.
+
+## Klienten
+
+### Utvecklingsläge
+
+1. Skapa en `.env`-fil i mappen `client` och fyll i `REACT_APP_BACKEND_URL="http://localhost:4000"`
+2. Kör `yarn run start` i mappen `client` för att starta servern i utvecklingsläge.
+
+### Produktionsläge
+
+1. Kör `yarn run build` i mappen `client`.
+2. Gå till `/build` och kör `npx serve`.
+
+## Förinställda användare
+
+Du kan alltid registrera ditt egna konto men om du inte vill det kan du använda:
+
+**Användarnamn:** sam@smith.com
+
+**Lösenord:** password
+
+
+# Nämnvärda paket
+
+Jag såg det här som en god chans att använda många av mina mest omtyckta paket. Jag hade sannolikt inte använt alla i ett verkligt scenario.
+
+- **SWR**. Hjälper oss hantera server state, data fetching och optimistic UI.
+- **Jotai**. Ett state management-bibliotek som tar en "atom"-approach. Man behöver inte bygga en store utan en state-variablel är inget mer än en variabel som kan importeras över hela projektet och orsakar inga onödiga renderingar. Liknar Facebooks Recoil.
+- **Axios**. Självklart val på grund av den automatiska felhanteringen. Tar man emot ett svar med en HTTP-kod utanför 200-spannet så låter Axios en veta det tydligare en den inbyggda fetch-API:n.
+- **Stitches**. Likt Styled-components men det låter en på väldigt enkelt vis bygga egna komponenter med varianter, t.ex `<Button size="large" color="primary" shadow></Button>`
+- **Formik**. Gör det enkelt att ta emot och arbeta med formulärdata. Används bara på inloggningssidan i detta projektet.
+- **Framer Motion**. Bibliotek för animering. Snuddar på att vara för prestandakrävande och gör sidan mindre tillgänlig men den ser fin ut.
+- **react-hot-toast**. Ett bibliotek för "toasts". Första gången jag använde det och använde bara det för att visa att man loggades in.
+
 
 # JWT authentication
 
