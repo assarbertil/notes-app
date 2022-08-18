@@ -1,3 +1,14 @@
+<p align="center">
+  <figure>
+     <img src="https://previews.dropbox.com/p/thumb/ABrLxgu_usel7ExjPqxCgmtW2HGa5s76rG6lSmyxLFj8daP9dKuuh5vqwblvfHr8QVQFiLSI5uVoxqe7ivvDXB52bsiPzF5H9ptJgd43NKgTNtzjJNoPCvqs6RcSrSIz1c_ISoWvP4oqm9HyNsQ31QFMVi0inNvKa5ZZABfBeoH9u96TR2fvoJexMSTbOpuSZDEVsUptLVil5R5vy9kO8x_YAwhzeaeffM9Dk01VPWTijQ_6lbz1zp3IKFlMtALE4PkHMP_-3oOvuqGiZtaz2stbbNEadcqhQTJsakzNn2VyWTuh7LtJQ9YxCjC2EFjdOpfBZ2Fz8PIGQPl2E3jxNCNo6kqbH7N-DFOR8e2uDEw4M_H1K1oKKEllQa6c9efNeSYuADMuOnWNOEmt6Rp7wQktRL2QPn6ILelasSAuvw4HJKQssa34UC8txcQ1VnqepgI/p.gif" alt="Demo" />
+    <figcaption>
+      <p align="center">
+        Demo
+      </p>
+    </figcaption>
+  </figure>
+</p>
+
 # Instruktion
 
 ## Databasen
