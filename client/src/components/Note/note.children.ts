@@ -28,7 +28,7 @@ export const NoteContainer = styled(motion.button, {
     active: {
       false: {
         outline: "2px dashed $blue6",
-        color: "$blue9",
+        color: "$blue12",
         opacity: 0.5,
         "&:hover": { background: "$blue4" },
       },
