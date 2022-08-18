@@ -9,6 +9,12 @@
   </figure>
 </p>
 
+# Intro
+
+Det här projektet var en skoluppgift där jag försökte skapa en webb-app för anteckningar olik alla andra som finns där ute. Jag valde att återbesöka NPM-paket jag gillar att använda för att förbättra användarupplevelsen.
+
+I huvudsak består projektet av en klient i React skriven med TypeScript och en API-server skapad med Express.js, TypeScript och En PostgreSQL-databas.
+
 # Instruktion
 
 ## Databasen
