@@ -1,3 +1,14 @@
+<p align="center">
+  <figure>
+    <img src="https://storage.googleapis.com/trpc/trpcgif.gif" alt="Demo" />
+    <figcaption>
+      <p align="center">
+        The client above is <strong>not</strong> importing any code from the server, only its type declarations.
+      </p>
+    </figcaption>
+  </figure>
+</p>
+
 # Instruktion
 
 ## Databasen
