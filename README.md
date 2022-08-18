@@ -1,9 +1,9 @@
 <p align="center">
   <figure>
-    <img src="https://storage.googleapis.com/trpc/trpcgif.gif" alt="Demo" />
+    <img src="https://i.imgur.com/6dooccY.mp4" alt="Demo" />
     <figcaption>
       <p align="center">
-        The client above is <strong>not</strong> importing any code from the server, only its type declarations.
+        Demo
       </p>
     </figcaption>
   </figure>
