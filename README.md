@@ -1,6 +1,6 @@
 <p align="center">
   <figure>
-     <img src="https://raw.githubusercontent.com/assarbertil/notes/main/notes-app.gif" alt="Demo" />
+     <img src="https://raw.githubusercontent.com/MilicaBl/gridpainter/main/screenshot.png" alt="Demo" />
     <figcaption>
       <p align="center">
         Demo
